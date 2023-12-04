@@ -1,0 +1,21 @@
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+<div id="app">
+    <p>{{ contador }}</p>
+    <p>{{ contador > 10 ? 'maior que 10' : 'menor que 10'}}</p>
+    <button v-on:click="somar(event)">Somar 1</button> <!--"$event" fala que o proprio evento sera passado como parametro ///"v-on:evento que terá que ocorrer para disparar a função = "função que sera executada" fica escutando o evento que vem logo em sequencia como se fosse um onclick-->
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            contador: 0,
+        },
+        methods: {
+            somar(evento){
+                this.contador++
+            },
+        }
+    })
+</script>

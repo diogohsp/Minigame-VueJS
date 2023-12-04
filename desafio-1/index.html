@@ -1,0 +1,32 @@
+<script src="https://unpkg.com/vue@2"></script>
+
+<div id="desafio">
+    <!-- 1) Preencha a tag <p> abaixo com o seu Nome e Idade - usando Interpolação -->
+    <p>{{ nome }}</p>
+    
+    <!-- 2) Exiba sua idade multiplicada por 3 -->
+    <p>Minha idade multiplicada é: {{multiplicaIdade(3)}}</p>
+    
+    <!-- 3) Chame uma função para exibir um número randomico
+        entre 0 and 1 (Math.random()) -->
+    <p>numero aleatorio entre 0 e 1: {{numeroRandom()}}</p>
+    
+    <!-- 4) Procure uma imagem no google e exiba na tag img 
+        fazendo o binding no atributo "src" -->
+    <div>
+        <img :src='urlImagem'  height="400">
+    </div>
+    
+    <!-- 5) Inicialize o input com o seu nome (use o atributo "value") -->
+    <div>
+        <input type="text" v-on:input="alterarTitulo">
+    </div>
+</div>
+<script src="app.js"></script>
+
+1- criei um elemento nome dentro de data em app.js e no html coloquei ele entre 2 chaves para fazelo funcionar
+
+2- criei methods e criei uma função multiplica idade que recebe por parametro um valor e essa função multiplica o "this.idade" pelo valor informado por parametro e retorna a idade multiplicada,
+para mostrala no html chamei o method entre duas chaves e passe o parametro
+
+3-
