@@ -12,15 +12,15 @@
             <div class="score">
                 <h1>Jogador</h1>
                 <div class="life-bar">
-                    <div class="life" :class="{danger: playerLIfe < 20}"
-                    :style="{width: playerLife + '%'}"></div>
+                    <div class="life"
+                    :style="{width: playerLife + '%'}" :class="{ danger: playerLife < 20}"></div>
                 </div>
                 <div>{{ playerLife }}</div>
             </div>
             <div class="score">
                 <h1>Monstro</h1>
                 <div class="life-bar">
-                    <div class="life" class="{danger: playerLIfe < 20}"
+                    <div class="life" :class="{'danger': monsterLife < 20}"
                     :style="{width: monsterLife + '%'}"></div>
                 </div>
                 <div>{{ monsterLife }}</div>
@@ -33,15 +33,19 @@
         <div class="panel buttons">
             <template v-if="!iniciar_jogo">
                 <button class="btn attack" @click="atacar">Ataque</button>
-                <button class="btn especial-attack">Ataque Especial</button>
-                <button class="btn heal">Curar</button>
-                <button class="btn give-up" @click="iniciar_jogo = !iniciar_jogo">Desistir</button>
+                <button class="btn especial-attack"@click="ataqueEspecial" >Ataque Especial</button>
+                <button class="btn heal" @click="curar">Curar</button>
+                <button class="btn give-up" @click="desistir">Desistir</button>
             </template>
             <button class="btn new-game" v-show="iniciar_jogo" @click="iniciarJogo()">Iniciar Jogo</button>
         </div>
-        <div class="panel logs">
+        <div v-if="logs.length" class="panel logs">
             <ul>
-                <li></li>
+                <li v-for="log in logs">
+                    <span v-for="log">
+                        {{ganho}}
+                    </span>
+                </li>
             </ul>
         </div>
     </div>
