@@ -13,14 +13,14 @@
                 <h1>Jogador</h1>
                 <div class="life-bar">
                     <div class="life"
-                    :style="{width: playerLife + '%'}" :class="{ danger: playerLife < 20}"></div>
+                    :style="{width: playerLife + '%'}" :class="{ 'danger': modoDangerPlayer, 'life': !modoDangerPlayer }"></div>
                 </div>
                 <div>{{ playerLife }}</div>
             </div>
             <div class="score">
                 <h1>Monstro</h1>
                 <div class="life-bar">
-                    <div class="life" :class="{'danger': monsterLife < 20}"
+                    <div class="life" :class="{ 'danger': modoDangerMonstro, 'life': !modoDangerMonstro }"
                     :style="{width: monsterLife + '%'}"></div>
                 </div>
                 <div>{{ monsterLife }}</div>
@@ -29,6 +29,7 @@
         <div class="panel result">
             <div class="win" v-if="vitoria">Você ganhou!!!</div>
             <div class="lose" v-if="derrota">Você perdeu!</div>
+            <div class="empate" v-if="empate">Empatou!</div>
         </div>
         <div class="panel buttons">
             <template v-if="!iniciar_jogo">

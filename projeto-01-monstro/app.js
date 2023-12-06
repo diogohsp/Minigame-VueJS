@@ -5,9 +5,13 @@ new Vue({
         
         vitoria:false,
         derrota:false,
+        empate:false,
         
         playerLife: 100,
         monsterLife:100,
+
+        modoDangerPlayer:false,
+        modoDangerMonstro:false,
 
         logs: []
         
@@ -18,10 +22,17 @@ new Vue({
             //iniciar jogo
             this.iniciar_jogo = !this.iniciar_jogo
 
+            this.resetar()
+        },
+
+        resetar(){
             //reset de vitoria e derrota
 
+            this.modoDangerPlayer = false
+            this.modoDangerMonstro = false
             this.derrota = false
             this.vitoria = false
+            this.empate = false
             
             //iniciando com vida maxima
 
@@ -34,7 +45,7 @@ new Vue({
         },
         atacar(){
 
-            if(!this.vitoria && !this.derrota){
+            if(!this.vitoria && !this.derrota && !this.empate){
 
             const danoPlayer = this.dano('player')
             const danoMonstro = this.dano('monstro')
@@ -46,7 +57,7 @@ new Vue({
         },
         ataqueEspecial(){
 
-            if(!this.vitoria && !this.derrota){
+            if(!this.vitoria && !this.derrota && !this.empate){
 
             const danoEspecial = this.dano('especialPlayer')
             const danoMonstro = this.dano('monstro')
@@ -97,7 +108,7 @@ new Vue({
         },
         curar(){
 
-            if(!this.vitoria && !this.derrota){
+            if(!this.vitoria && !this.derrota && !this.empate){
 
             let curaRecebida = Math.floor(Math.random() * 14)
             console.log("Cura recebida:", curaRecebida)
@@ -123,6 +134,10 @@ new Vue({
             }else{
             this.derrota = true
             }
+
+            if(this.empate == true){
+                this.derrota = false
+            }
         },
         registrarlog(text, cls){
             this.logs.unshift({text, cls})
@@ -143,13 +158,25 @@ new Vue({
             }else if(vidaDoPlayer > 100){
                 this.playerLife = 100;
             }
+
+
+            if(vidaDoPlayer <= 20){
+                this.modoDangerPlayer = true
+           } 
+           
             
             //Condição de vitoria
 
-            if(vidaDoMonstro <= 0 && vidaDoPlayer > 0) {
+            if(vidaDoMonstro < 0 && vidaDoPlayer > 0) {
                 this.vitoria = true
             }else{
                 this.vitoria = false
+            }
+
+            //Empate
+
+            if(vidaDoMonstro === 0 & vidaDoPlayer == 0){
+                this.empate = true
             }
             
         },
@@ -159,16 +186,24 @@ new Vue({
 
             //Vida minima
 
-            if(vidaDoMonstro <= 0){
+            if(vidaDoMonstro < 0){
                 this.monsterLife = 0
+            }
+
+            if(vidaDoMonstro <= 20) {
+                this.modoDangerMonstro = true
             }
 
             //Condição de derrota
 
-            if(this.playerLife <= 0 && this.monsterLife > 0){
+            if(this.playerLife <= 0 && this.monsterLife > 0 ){
                 this.derrota = true
             }else{
                 this.derrota = false
+            }
+
+            if(vidaDoMonstro === 0 & vidaDoPlayer == 0){
+                this.empate = true
             }
 
         },

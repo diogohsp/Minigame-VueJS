@@ -47,8 +47,8 @@ html {
     background-color: green;
 }
 
-.danger {
-    background-color: red;
+.life-bar .danger {
+    background-color: red !important;
     width: 100%;
     height: 100%;
 }
@@ -68,6 +68,10 @@ html {
 
 .result .lose {
     color: red;
+}
+
+.result .empate{
+    color: gray;
 }
 
 /* Área dos Botões (Controle do Jogo) */
