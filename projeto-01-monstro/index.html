@@ -41,9 +41,9 @@
         </div>
         <div v-if="logs.length" class="panel logs">
             <ul>
-                <li v-for="log in logs">
+                <li v-for="log in logs" :class="log.cls">
                     <span v-for="log">
-                        {{ganho}}
+                        {{log.text}}
                     </span>
                 </li>
             </ul>

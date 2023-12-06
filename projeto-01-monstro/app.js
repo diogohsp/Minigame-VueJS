@@ -27,22 +27,20 @@ new Vue({
 
             this.playerLife = 100
             this.monsterLife = 100
+
+            //resetando logs
+
+            this.logs = []
         },
         atacar(){
 
             if(!this.vitoria && !this.derrota){
 
-            let danoCausado = Math.floor(Math.random() * 14)
-            console.log("dano causado:", danoCausado)
+            const danoPlayer = this.dano('player')
+            const danoMonstro = this.dano('monstro')
             
-
-            let danoRecebido = Math.floor(Math.random() * 21)
-            console.log("danoRecebido:", danoRecebido)
-
-            this.playerLife -= danoRecebido;
-            this.monsterLife -= danoCausado;
-
-            this.registrarlog(`${}oi`)
+            this.registrarlog(`Você deu ${danoPlayer} de dano!`, 'player')
+            this.registrarlog(`Você recebeu ${danoMonstro} de dano!`, 'monster')
 
             }
         },
@@ -50,16 +48,52 @@ new Vue({
 
             if(!this.vitoria && !this.derrota){
 
-            let danoCausado = Math.floor(Math.random() * 20)
+            const danoEspecial = this.dano('especialPlayer')
+            const danoMonstro = this.dano('monstro')
+
+            this.registrarlog(`Você deu ${danoEspecial} de dano especial!`, 'player')
+            this.registrarlog(`Você recebeu ${danoMonstro} de dano!`, 'monster')
+        
+            }
+        },
+        dano(fonteDoDano,cls){
+            
+            //Dano especial Player
+            
+            if(fonteDoDano === 'especialPlayer'){
+                
+            let danoCausado = Math.floor(Math.random() * 25)
             console.log("dano especial causado:", danoCausado)
+                
+            this.monsterLife -= danoCausado;
+    
+            return danoCausado
+            }
 
-            let danoRecebido = Math.floor(Math.random() * 13)
-            console.log("dano recebido:", danoRecebido)
+            //Dano Player
+            if(fonteDoDano === 'player'){
 
-            this.playerLife -= danoRecebido;
+            let danoCausado = Math.floor(Math.random() * 14)
+            console.log("dano causado:", danoCausado)
+            
             this.monsterLife -= danoCausado;
 
+            return danoCausado;
+            
+            //Dano Monstro
+            }else{
+
+            let danoRecebido = Math.floor(Math.random() * 21)
+            console.log("danoRecebido:", danoRecebido)    
+
+            this.playerLife -= danoRecebido;
+            
+            return danoRecebido;
             }
+
+            
+
+
         },
         curar(){
 
@@ -73,6 +107,9 @@ new Vue({
 
             this.playerLife += curaRecebida;
             this.playerLife -= danoRecebido;
+
+            this.registrarlog(`Você recebeu ${curaRecebida} de cura!`, 'player__cura')
+            this.registrarlog(`Você recebeu ${danoRecebido} de dano!`, 'monster')
 
             }
         },
