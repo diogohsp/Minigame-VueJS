@@ -1,0 +1,48 @@
+<meta charset="UTF-8">
+
+<div id="app">
+    {{ nome }} {{ sobrenome }} {{ 1 + 1 }}
+</div>
+
+<script>
+
+    function MeuVue(params){
+        this.$el = document.querySelector(params.el)
+        this.$data = params.data
+
+        for(let atributo in this.$data){
+            Object.defineProperty(this, atributo, {
+                get: () => {
+                    return this.$data[atributo]
+                },
+                set: value => {
+                    this.$data[atributo] = value
+                }
+            })
+        }
+
+        //interpolar
+
+        const regex = /\{\{([\s\w+*-]*)\}\}/g
+        this.$el.innerHTML = this.$el.innerHTML.replace(regex, (match, $1) => {
+            const value = this[$1.trim()]
+
+            return value ? value : eval($1)
+        }) 
+    }
+
+    const vm = new MeuVue({
+        el: '#app',
+        data: {
+            nome: 'Diogo',
+            sobrenome: 'Prado',
+        }
+    }) 
+
+    console.log(vm.nome)
+
+    vm.nome = 'Pedro'
+    console.log(vm.nome)
+    console.log(vm.$data.nome)
+
+</script>
